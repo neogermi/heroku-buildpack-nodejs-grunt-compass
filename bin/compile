@@ -82,7 +82,6 @@ if test -d $build_dir/node_modules; then
   npm rebuild 2>&1 | indent
 elif test -d $cache_dir/node/node_modules; then
   status "Restoring node_modules directory from cache"
-  rm -rf $cache_dir/node/node_modules
   cp -r $cache_dir/node/node_modules $build_dir/
 
   status "Pruning cached dependencies not specified in package.json"
@@ -90,6 +89,7 @@ elif test -d $cache_dir/node/node_modules; then
 
   if test -f $cache_dir/node/.heroku/node-version && [ $(cat $cache_dir/node/.heroku/node-version) != "$node_version" ]; then
     status "Node version changed since last build; rebuilding dependencies"
+    rm -rf $build_dir/node_modules
     npm rebuild 2>&1 | indent
   fi
 
