@@ -147,17 +147,19 @@ if [ ! -e $build_dir/Procfile ]; then
   fi
 fi
 
+echo $build_dir;
+echo $cache_dir;
+
+export GEM_HOME=$build_dir/.gem/ruby/1.9.1
+PATH="$GEM_HOME/bin:$PATH"
+
+# install bundler
+status "Installing Bundler"
+HOME=$build_dir gem install bundler --user-install --no-rdoc --no-ri
+
 # install compass
 status "Installing Compass"
-export GEM_HOME=$build_dir/.gem/ruby/1.9.1
-PATH="$GEM_HOME/bin:$build_dir/.gem/ruby/2.2.0/bin:$PATH"
-#if test -d $cache_dir/ruby/.gem; then
-#  status "Restoring ruby gems directory from cache"
-#  cp -r $cache_dir/ruby/.gem $build_dir
-#  HOME=$build_dir gem update compass --user-install --no-rdoc --no-ri
-#else
-  HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
-#fi
+HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
 
 # cache ruby gems compass
 rm -rf $cache_dir/ruby
