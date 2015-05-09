@@ -153,6 +153,8 @@ rm -rf $build_dir/.gem/
 export GEM_HOME=$build_dir/.gem/ruby/1.9.1
 PATH="$GEM_HOME/bin:$PATH"
 
+gem env
+
 # install compass
 status "Installing Compass"
 HOME=$build_dir gem install compass -v 1.0.3 --user-install --no-rdoc --no-ri
