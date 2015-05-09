@@ -147,20 +147,20 @@ if [ ! -e $build_dir/Procfile ]; then
   fi
 fi
 
-status "Building runtime environment"
-mkdir -p $build_dir/.profile.d
-echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
-echo "export PATH=\"\$HOME/.gem/ruby/1.9.3/bin:\$PATH\"" > $build_dir/.profile.d/ruby.sh
-
 status "Clear .gem dir"
 rm -rf $build_dir/.gem/
 
-export GEM_HOME=$build_dir/.gem/ruby/1.9.3
+export GEM_HOME=$build_dir/.gem/ruby/1.9.1
 PATH="$GEM_HOME/bin:$PATH"
 
 # install compass
 status "Installing Compass"
-HOME=$build_dir gem install compass -v 1.0.1 --user-install --no-rdoc --no-ri
+HOME=$build_dir gem install compass -v 1.0.3 --user-install --no-rdoc --no-ri
+
+status "Building runtime environment"
+mkdir -p $build_dir/.profile.d
+echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
+echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d/ruby.sh
 
 # Check and run Grunt
 (
